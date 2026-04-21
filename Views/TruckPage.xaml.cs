@@ -1,8 +1,8 @@
 namespace RotaSegura;
 
-public partial class SalesPage : ContentPage
+public partial class TruckPage : ContentPage
 {
-	public SalesPage()
+	public TruckPage()
 	{
 		InitializeComponent();
 	}

@@ -6,20 +6,24 @@
     xmlns:local="clr-namespace:RotaSegura" 
     Title="RotaSegura"
     FlyoutBehavior="Locked">
-    <FlyoutItem Title="Home" Icon="home_icon.png">
+    <FlyoutItem Title="Início" Icon="home_icon.png">
         <ShellContent ContentTemplate="{DataTemplate local:HomePage}" Route="HomePage" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Vendas" Icon="sales_icon.png">
-        <ShellContent ContentTemplate="{DataTemplate local:SalesPage}" Route="SalesPage" />
+    <FlyoutItem Title="Caminhão" Icon="sales_icon.png">
+        <ShellContent ContentTemplate="{DataTemplate local:TruckPage}" Route="TruckPage" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Produtos" Icon="product_icon.png">
-        <ShellContent ContentTemplate="{DataTemplate local:ProductPage}" Route="ProductPage" />
+    <FlyoutItem Title="Carga" Icon="product_icon.png">
+        <ShellContent ContentTemplate="{DataTemplate local:LoadPage}" Route="LoadPage" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Ajustes" Icon="settings_icon.png">
-        <ShellContent ContentTemplate="{DataTemplate local:SettingsPage}" Route="SettingsPage" />
+    <FlyoutItem Title="Fretes" Icon="settings_icon.png">
+        <ShellContent ContentTemplate="{DataTemplate local:FreightPage}" Route="FreightPage" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Perfil" Icon="settings_icon.png">
+        <ShellContent ContentTemplate="{DataTemplate local:SettingPage}" Route="SettingPage" />
     </FlyoutItem>
 
 </Shell>

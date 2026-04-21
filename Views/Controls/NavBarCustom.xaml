@@ -10,24 +10,25 @@
             </Border.Shadow>
         </Border>
 
-        <Grid x:Name="ItemsGrid" ColumnDefinitions="*,*,*,*">
-
+        <Grid x:Name="ItemsGrid" ColumnDefinitions="*,*,*,*,*">
             <Border x:Name="SelectionCircle"
-                    WidthRequest="50" HeightRequest="50"
-                    BackgroundColor="#512BD4"
-                    StrokeShape="RoundRectangle 25"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"/>
+            WidthRequest="50" HeightRequest="50"
+            BackgroundColor="#512BD4"
+            StrokeShape="RoundRectangle 25"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"/>
 
             <Label Grid.Column="0" Text="🏠" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center" x:Name="Icon0" InputTransparent="True"/>
-            <Label Grid.Column="1" Text="💰" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center" x:Name="Icon1" InputTransparent="True"/>
+            <Label Grid.Column="1" Text="🚛" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center" x:Name="Icon1" InputTransparent="True"/>
             <Label Grid.Column="2" Text="📦" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center" x:Name="Icon2" InputTransparent="True"/>
-            <Label Grid.Column="3" Text="⚙️" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center" x:Name="Icon3" InputTransparent="True"/>
+            <Label Grid.Column="3" Text="💰" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center" x:Name="Icon3" InputTransparent="True"/>
+            <Label Grid.Column="4" Text="⚙️" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center" x:Name="Icon4" InputTransparent="True"/>
 
             <Button Grid.Column="0" BackgroundColor="Transparent" Clicked="NavigateCommand" CommandParameter="0"/>
             <Button Grid.Column="1" BackgroundColor="Transparent" Clicked="NavigateCommand" CommandParameter="1"/>
             <Button Grid.Column="2" BackgroundColor="Transparent" Clicked="NavigateCommand" CommandParameter="2"/>
             <Button Grid.Column="3" BackgroundColor="Transparent" Clicked="NavigateCommand" CommandParameter="3"/>
+            <Button Grid.Column="4" BackgroundColor="Transparent" Clicked="NavigateCommand" CommandParameter="4"/>
         </Grid>
     </Grid>
 </ContentView>

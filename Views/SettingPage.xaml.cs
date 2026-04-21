@@ -1,4 +1,4 @@
-namespace RotaSegura.Views;
+namespace RotaSegura;
 
 public partial class SettingPage : ContentPage
 {

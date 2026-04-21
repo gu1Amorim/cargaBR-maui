@@ -1,5 +1,5 @@
 using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages; // Adicione este namespace
+using CommunityToolkit.Mvvm.Messaging.Messages; 
 
 namespace RotaSegura;
 
@@ -16,19 +16,18 @@ public partial class NavBarCustom : ContentView
     {
         if (sender is not Button btn || btn.CommandParameter == null) return;
 
-        int newIndex = int.Parse(btn.CommandParameter.ToString());
+        int newIndex = int.Parse(btn.CommandParameter.ToString()!);
         if (newIndex == _currentIndex) return;
 
-        // Lógica de animação
-        double columnWidth = this.Width / 4;
-        double targetX = newIndex * columnWidth;
+        double columnWidth = this.Width / 5;
 
-        await SelectionCircle.TranslateToAsync(targetX, 0, 100, Easing.Linear);
+        double targetX = (newIndex - _currentIndex) * columnWidth;
+
+        double finalX = newIndex * columnWidth;
+
+        await SelectionCircle.TranslateToAsync(finalX, 0, 150, Easing.CubicOut);
 
         _currentIndex = newIndex;
-
-        // CORREÇÃO AQUI: 
-        // Em vez de enviar 'newIndex' puro, enviamos o ValueChangedMessage
         WeakReferenceMessenger.Default.Send(new ValueChangedMessage<int>(newIndex), "PageChanged");
     }
 }
