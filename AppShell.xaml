@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="RotaSegura.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:RotaSegura" 
+    Title="RotaSegura"
+    FlyoutBehavior="Locked">
+    <FlyoutItem Title="Home" Icon="home_icon.png">
+        <ShellContent ContentTemplate="{DataTemplate local:HomePage}" Route="HomePage" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Vendas" Icon="sales_icon.png">
+        <ShellContent ContentTemplate="{DataTemplate local:SalesPage}" Route="SalesPage" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Produtos" Icon="product_icon.png">
+        <ShellContent ContentTemplate="{DataTemplate local:ProductPage}" Route="ProductPage" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Ajustes" Icon="settings_icon.png">
+        <ShellContent ContentTemplate="{DataTemplate local:SettingsPage}" Route="SettingsPage" />
+    </FlyoutItem>
+
+</Shell>
