@@ -22,14 +22,21 @@ public partial class MainPage : ContentPage
 
     private void TrocarTela(int index)
     {
-        ContentArea.Content = index switch
+        if (Handler?.MauiContext == null) return;
+
+        ContentPage? page = index switch
         {
-            0 => new HomePage().Content,
-            1 => new TruckPage().Content,
-            2 => new LoadPage().Content,
-            3 => new FreightPage().Content,
-            4 => new SettingPage().Content,
-            _ => new HomePage().Content,
+            0 => Handler.MauiContext.Services.GetService<HomePage>(),
+            1 => Handler.MauiContext.Services.GetService<TruckPage>(),
+            2 => Handler.MauiContext.Services.GetService<LoadPage>(),
+            3 => Handler.MauiContext.Services.GetService<FreightPage>(),
+            4 => Handler.MauiContext.Services.GetService<SettingPage>(),
+            _ => Handler.MauiContext.Services.GetService<HomePage>(),
         };
+
+        if (page != null)
+        {
+            ContentArea.Content = page.Content;
+        }
     }
 }

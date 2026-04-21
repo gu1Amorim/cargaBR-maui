@@ -93,11 +93,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Services\" />
-	  <Folder Include="ViewModels\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Compile Update="Views\LoadPage.xaml.cs">
 	    <DependentUpon>LoadPage.xaml</DependentUpon>
 	  </Compile>

@@ -1,9 +1,12 @@
+using RotaSegura.ViewModels;
+
 namespace RotaSegura;
 
 public partial class LoadPage : ContentPage
 {
-	public LoadPage()
-	{
-		InitializeComponent();
-	}
+	public LoadPage(LoadPageViewModel viewModel)
+    {
+        InitializeComponent();
+        BindingContext = viewModel;
+    }
 }

@@ -42,4 +42,4 @@ public partial class NavBarCustom : ContentView
             labels[i].FontAttributes = isSelected ? FontAttributes.Bold : FontAttributes.None;
         }
     }
-}
+} 
