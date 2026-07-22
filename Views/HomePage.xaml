@@ -1,103 +1,106 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RotaSegura.HomePage"
-             BackgroundColor="#F5F5F5"
+             xmlns:vm="clr-namespace:CargaBR.ViewModels"
+             x:Class="CargaBR.Views.HomePage"
+             x:DataType="vm:HomePageViewModel"
              Title="CargaBR">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="20">
+    <RefreshView Command="{Binding LoadDashboardCommand}" IsRefreshing="{Binding IsBusy}">
+        <ScrollView>
+            <VerticalStackLayout Padding="20" Spacing="20">
 
-            <Border StrokeThickness="0" HeightRequest="160">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="15" />
-                </Border.StrokeShape>
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#2962FF" Offset="0.1" />
-                        <GradientStop Color="#1565C0" Offset="1.0" />
-                    </LinearGradientBrush>
-                </Border.Background>
-
-                <VerticalStackLayout Padding="25" Spacing="5" VerticalOptions="Center">
-                    <Label Text="Bem-vindo de volta!" TextColor="#D1D9FF" FontSize="14" />
-                    <Label Text="João Silva" TextColor="White" FontSize="26" FontAttributes="Bold" />
-                    <Label Text="CPF: 123.456.789-00" TextColor="White" Opacity="0.8" FontSize="14" />
-                </VerticalStackLayout>
-            </Border>
-
-            <Grid ColumnDefinitions="*, *" ColumnSpacing="15">
-                <Border Grid.Column="0" Padding="15" BackgroundColor="#F1FBEF" Stroke="#D1EED1" StrokeThickness="1">
+                <Border StrokeThickness="0" HeightRequest="160">
                     <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="12" />
+                        <RoundRectangle CornerRadius="15" />
                     </Border.StrokeShape>
-                    <VerticalStackLayout Spacing="5">
-                        <Label Text="💲" FontSize="18" />
-                        <Label Text="Ganhos Mês" TextColor="#666666" FontSize="12" />
-                        <Label Text="R$ 27.600" TextColor="#2E7D32" FontAttributes="Bold" FontSize="18" />
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="{StaticResource Primary}" Offset="0.1" />
+                            <GradientStop Color="{StaticResource Tertiary}" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+
+                    <VerticalStackLayout Padding="25" Spacing="5" VerticalOptions="Center">
+                        <Label Text="Bem-vindo de volta!" TextColor="#D1D9FF" FontSize="14" />
+                        <Label Text="{Binding UserName}" TextColor="White" FontSize="26" FontAttributes="Bold" />
+                        <Label Text="{Binding UserCpf, StringFormat='CPF: {0}'}" TextColor="White" Opacity="0.8" FontSize="14" />
                     </VerticalStackLayout>
                 </Border>
 
-                <Border Grid.Column="1" Padding="15" BackgroundColor="#F0F4FF" Stroke="#D0D9FF" StrokeThickness="1">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="12" />
-                    </Border.StrokeShape>
-                    <VerticalStackLayout Spacing="5">
-                        <Label Text="📦" FontSize="18" />
-                        <Label Text="Entregas" TextColor="#666666" FontSize="12" />
-                        <Label Text="3" TextColor="#2962FF" FontAttributes="Bold" FontSize="18" />
+                <Grid ColumnDefinitions="*, *" ColumnSpacing="15">
+                    <Border Grid.Column="0" Padding="15"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource SuccessBackground}, Dark={StaticResource SuccessBackgroundDark}}"
+                            Stroke="{AppThemeBinding Light={StaticResource Border}, Dark={StaticResource BorderDark}}" StrokeThickness="1">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="5">
+                            <Label FontFamily="FASolid" Text="&#xf155;" FontSize="18" TextColor="{StaticResource Success}" />
+                            <Label Text="Ganhos Mês" Style="{StaticResource MutedLabel}" FontSize="12" />
+                            <Label Text="{Binding MonthlyEarnings, StringFormat='R$ {0:N2}'}" TextColor="{StaticResource Success}" FontAttributes="Bold" FontSize="18" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Grid.Column="1" Padding="15" Style="{StaticResource CardStyle}">
+                        <VerticalStackLayout Spacing="5">
+                            <Label FontFamily="FASolid" Text="&#xf466;" FontSize="18"
+                                   TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+                            <Label Text="Entregas" Style="{StaticResource MutedLabel}" FontSize="12" />
+                            <Label Text="{Binding DeliveriesCount}"
+                                   TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                                   FontAttributes="Bold" FontSize="18" />
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+
+                <Border Style="{StaticResource CardStyle}">
+                    <VerticalStackLayout Spacing="15">
+                        <HorizontalStackLayout Spacing="10">
+                            <Label FontFamily="FASolid" Text="&#xf570;" VerticalOptions="Center" FontSize="18" />
+                            <Label Text="Notas de Serviço" Style="{StaticResource SectionTitle}" Margin="0" />
+                        </HorizontalStackLayout>
+
+                        <Button Text="+ Importar Nota Fiscal" Style="{StaticResource PrimaryButton}"
+                                Command="{Binding ImportInvoiceCommand}" />
                     </VerticalStackLayout>
                 </Border>
-            </Grid>
 
-            <Border Padding="20" BackgroundColor="White" Stroke="#E0E0E0" StrokeThickness="1">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="15" />
-                </Border.StrokeShape>
-                <VerticalStackLayout Spacing="15">
-                    <HorizontalStackLayout Spacing="10">
-                        <Label Text="📄" VerticalOptions="Center" FontSize="18"/>
-                        <Label Text="Notas de Serviço" FontAttributes="Bold" FontSize="18" TextColor="Black" />
-                    </HorizontalStackLayout>
+                <Border Style="{StaticResource CardStyle}">
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="Atalhos Rápidos" Style="{StaticResource SectionTitle}" Margin="0" />
 
-                    <Button Text="+ Importar Nota Fiscal" 
-                            BackgroundColor="#2962FF" 
-                            TextColor="White" 
-                            CornerRadius="10" 
-                            HeightRequest="50" 
-                            FontAttributes="Bold" />
-                </VerticalStackLayout>
-            </Border>
+                        <Border BackgroundColor="{AppThemeBinding Light=#F2F4F7, Dark=#2A3446}" Padding="15" StrokeThickness="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10"/>
+                            </Border.StrokeShape>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoToLoadsCommand}" />
+                            </Border.GestureRecognizers>
+                            <HorizontalStackLayout Spacing="15">
+                                <Label FontFamily="FASolid" Text="&#xf466;" VerticalOptions="Center"
+                                       TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+                                <Label Text="Ver Cargas Disponíveis" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                        </Border>
 
-            <Border Padding="20" BackgroundColor="White" Stroke="#E0E0E0" StrokeThickness="1">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="15" />
-                </Border.StrokeShape>
-                <VerticalStackLayout Spacing="15">
-                    <Label Text="Atalhos Rápidos" FontAttributes="Bold" FontSize="18" TextColor="Black" />
+                        <Border BackgroundColor="{AppThemeBinding Light=#F2F4F7, Dark=#2A3446}" Padding="15" StrokeThickness="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10"/>
+                            </Border.StrokeShape>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoToTruckCommand}" />
+                            </Border.GestureRecognizers>
+                            <HorizontalStackLayout Spacing="15">
+                                <Label FontFamily="FASolid" Text="&#xf0d1;" VerticalOptions="Center"
+                                       TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+                                <Label Text="Gerenciar Caminhão" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
 
-                    <Border BackgroundColor="#F2F4F7" Padding="15" StrokeThickness="0">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="10"/>
-                        </Border.StrokeShape>
-                        <HorizontalStackLayout Spacing="15">
-                            <Label Text="📦" VerticalOptions="Center" />
-                            <Label Text="Ver Cargas Disponíveis" TextColor="Black" VerticalOptions="Center" />
-                        </HorizontalStackLayout>
-                    </Border>
-
-                    <Border BackgroundColor="#F2F4F7" Padding="15" StrokeThickness="0">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="10"/>
-                        </Border.StrokeShape>
-                        <HorizontalStackLayout Spacing="15">
-                            <Label Text="🚛" VerticalOptions="Center" />
-                            <Label Text="Gerenciar Caminhão" TextColor="Black" VerticalOptions="Center" />
-                        </HorizontalStackLayout>
-                    </Border>
-                </VerticalStackLayout>
-            </Border>
-
-        </VerticalStackLayout>
-    </ScrollView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </RefreshView>
 </ContentPage>

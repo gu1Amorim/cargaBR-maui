@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using CargaBR.Models.Enums;
 
-namespace RotaSegura.Models
+namespace CargaBR.Models;
+
+public class Truck
 {
-    internal class Truck
-    {
-    }
+    public int Id { get; set; }
+    public string Model { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public string Plate { get; set; } = string.Empty;
+    public string TrailerPlate { get; set; } = string.Empty;
+    public TruckSize Size { get; set; }
 }

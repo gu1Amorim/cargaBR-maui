@@ -1,22 +1,39 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
-<ResourceDictionary 
+<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
 
-    <Color x:Key="Primary">#512BD4</Color>
-    <Color x:Key="PrimaryDark">#ac99ea</Color>
-    <Color x:Key="PrimaryDarkText">#242424</Color>
-    <Color x:Key="Secondary">#DFD8F7</Color>
-    <Color x:Key="SecondaryDarkText">#9880e5</Color>
-    <Color x:Key="Tertiary">#2B0B98</Color>
+    <!-- Paleta CargaBR -->
+    <Color x:Key="Primary">#2962FF</Color>
+    <Color x:Key="PrimaryDark">#5B8CFF</Color>
+    <Color x:Key="PrimaryDarkText">#0B1220</Color>
+    <Color x:Key="Secondary">#1C2331</Color>
+    <Color x:Key="SecondaryDark">#2A3446</Color>
+    <Color x:Key="Tertiary">#0056B3</Color>
+
+    <Color x:Key="Success">#2E7D32</Color>
+    <Color x:Key="SuccessDark">#66BB6A</Color>
+    <Color x:Key="SuccessBackground">#E8F5E9</Color>
+    <Color x:Key="SuccessBackgroundDark">#1B3A1D</Color>
+    <Color x:Key="Danger">#FF5252</Color>
+    <Color x:Key="DangerDark">#FF8A80</Color>
+
+    <Color x:Key="Background">#F5F5F5</Color>
+    <Color x:Key="BackgroundDark">#121212</Color>
+    <Color x:Key="Surface">White</Color>
+    <Color x:Key="SurfaceDark">#1E1E1E</Color>
+    <Color x:Key="Border">#E0E0E0</Color>
+    <Color x:Key="BorderDark">#33394A</Color>
+
+    <Color x:Key="TextPrimary">#1C2331</Color>
+    <Color x:Key="TextPrimaryDark">#F5F5F5</Color>
+    <Color x:Key="TextSecondary">#666666</Color>
+    <Color x:Key="TextSecondaryDark">#AAAAAA</Color>
 
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>
-    <Color x:Key="Magenta">#D600AA</Color>
-    <Color x:Key="MidnightBlue">#190649</Color>
-    <Color x:Key="OffBlack">#1f1f1f</Color>
 
     <Color x:Key="Gray100">#E1E1E1</Color>
     <Color x:Key="Gray200">#C8C8C8</Color>

@@ -1,102 +1,77 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RotaSegura.FreightPage"
-             BackgroundColor="#F5F5F5"
+             xmlns:vm="clr-namespace:CargaBR.ViewModels"
+             xmlns:models="clr-namespace:CargaBR.Models"
+             x:Class="CargaBR.Views.FreightPage"
+             x:DataType="vm:FreightPageViewModel"
              Title="Meus Transportes">
 
     <Grid RowDefinitions="Auto, *">
 
         <Button Grid.Row="0"
                 Text="+ Registrar Novo Transporte"
-                Command="{Binding SaveTruckCommand}"
-                BackgroundColor="#2962FF"
-                TextColor="White"
-                FontAttributes="Bold"
-                CornerRadius="10"
+                Command="{Binding RegisterTransportCommand}"
+                Style="{StaticResource PrimaryButton}"
                 HeightRequest="55"
                 Margin="20,15,20,10" />
 
-        <ScrollView Grid.Row="1">
-            <VerticalStackLayout Padding="20,0,20,20" Spacing="15">
+        <RefreshView Grid.Row="1" Command="{Binding LoadFreightsCommand}" IsRefreshing="{Binding IsBusy}">
+            <ScrollView>
+                <VerticalStackLayout Padding="20,0,20,20" Spacing="15">
 
-                <Border Padding="20" BackgroundColor="White" Stroke="#E0E0E0" StrokeThickness="1">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="15" />
-                    </Border.StrokeShape>
+                    <CollectionView ItemsSource="{Binding Freights}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Freight">
+                                <Border Style="{StaticResource CardStyle}" Margin="0,0,0,15">
+                                    <VerticalStackLayout Spacing="12">
+                                        <Grid ColumnDefinitions="*, Auto">
+                                            <VerticalStackLayout>
+                                                <Label Text="{Binding Description}" FontAttributes="Bold" FontSize="18"/>
+                                                <Border BackgroundColor="{AppThemeBinding Light={StaticResource SuccessBackground}, Dark={StaticResource SuccessBackgroundDark}}"
+                                                        Padding="8,2" HorizontalOptions="Start" Margin="0,5,0,0" StrokeThickness="0">
+                                                    <Border.StrokeShape>
+                                                        <RoundRectangle CornerRadius="5"/>
+                                                    </Border.StrokeShape>
+                                                    <Label Text="{Binding Status, Converter={StaticResource FreightStatusToLabelConverter}}" TextColor="{StaticResource Success}" FontSize="12" FontAttributes="Bold"/>
+                                                </Border>
+                                            </VerticalStackLayout>
+                                            <Label Grid.Column="1" Text="{Binding Value, StringFormat='R$ {0:N2}'}" TextColor="{StaticResource Success}" FontAttributes="Bold" FontSize="18" VerticalOptions="Start"/>
+                                        </Grid>
 
-                    <VerticalStackLayout Spacing="12">
-                        <Grid ColumnDefinitions="*, Auto">
-                            <VerticalStackLayout>
-                                <Label Text="Grãos" FontAttributes="Bold" FontSize="18" TextColor="Black"/>
-                                <Border BackgroundColor="#E8F5E9" Padding="8,2" HorizontalOptions="Start" Margin="0,5,0,0">
-                                    <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="5"/>
-                                    </Border.StrokeShape>
-                                    <Label Text="Concluído" TextColor="#2E7D32" FontSize="12" FontAttributes="Bold"/>
+                                        <VerticalStackLayout Spacing="8" Margin="0,5,0,0">
+                                            <HorizontalStackLayout Spacing="10">
+                                                <Label FontFamily="FASolid" Text="&#xf3c5;" FontSize="12" VerticalOptions="Center"/>
+                                                <Label Text="{Binding OriginCity}" Style="{StaticResource MutedLabel}" FontSize="14"/>
+                                            </HorizontalStackLayout>
+
+                                            <HorizontalStackLayout Spacing="10">
+                                                <Label FontFamily="FASolid" Text="&#xf3c5;" FontSize="12" VerticalOptions="Center"/>
+                                                <Label Text="{Binding DestinationCity}" Style="{StaticResource MutedLabel}" FontSize="14"/>
+                                            </HorizontalStackLayout>
+
+                                            <HorizontalStackLayout Spacing="10">
+                                                <Label FontFamily="FASolid" Text="&#xf5cd;" VerticalOptions="Center"/>
+                                                <Label Text="Peso:" FontAttributes="Bold" FontSize="14"/>
+                                                <Label Text="{Binding WeightTons, StringFormat='{0} toneladas'}" Style="{StaticResource MutedLabel}" FontSize="14"/>
+                                            </HorizontalStackLayout>
+
+                                            <HorizontalStackLayout Spacing="10">
+                                                <Label FontFamily="FASolid" Text="&#xf073;" VerticalOptions="Center"/>
+                                                <Label Text="Período:" FontAttributes="Bold" FontSize="14"/>
+                                                <Label Text="{Binding PeriodStart, StringFormat='{0:dd/MM/yyyy}'}" Style="{StaticResource MutedLabel}" FontSize="14"/>
+                                                <Label Text=" - " Style="{StaticResource MutedLabel}" FontSize="14"/>
+                                                <Label Text="{Binding PeriodEnd, StringFormat='{0:dd/MM/yyyy}'}" Style="{StaticResource MutedLabel}" FontSize="14"/>
+                                            </HorizontalStackLayout>
+                                        </VerticalStackLayout>
+                                    </VerticalStackLayout>
                                 </Border>
-                            </VerticalStackLayout>
-                            <Label Grid.Column="1" Text="R$ 8.500,00" TextColor="#2E7D32" FontAttributes="Bold" FontSize="18" VerticalOptions="Start"/>
-                        </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
 
-                        <VerticalStackLayout Spacing="8" Margin="0,5,0,0">
-                            <HorizontalStackLayout Spacing="10">
-                                <Label Text="🔵" FontSize="12" VerticalOptions="Center"/>
-                                <Label Text="Curitiba - PR" TextColor="Gray" FontSize="14"/>
-                            </HorizontalStackLayout>
-
-                            <HorizontalStackLayout Spacing="10">
-                                <Label Text="🔴" FontSize="12" VerticalOptions="Center"/>
-                                <Label Text="São Paulo - SP" TextColor="Gray" FontSize="14"/>
-                            </HorizontalStackLayout>
-
-                            <HorizontalStackLayout Spacing="10">
-                                <Label Text="⚖️" VerticalOptions="Center"/>
-                                <Label Text="Peso:" TextColor="Black" FontAttributes="Bold" FontSize="14"/>
-                                <Label Text="25 toneladas" TextColor="Gray" FontSize="14"/>
-                            </HorizontalStackLayout>
-
-                            <HorizontalStackLayout Spacing="10">
-                                <Label Text="📅" VerticalOptions="Center"/>
-                                <Label Text="Período:" TextColor="Black" FontAttributes="Bold" FontSize="14"/>
-                                <Label Text="15/04/2026 - 17/04/2026" TextColor="Gray" FontSize="14"/>
-                            </HorizontalStackLayout>
-                        </VerticalStackLayout>
-                    </VerticalStackLayout>
-                </Border>
-
-                <Border Padding="20" BackgroundColor="White" Stroke="#E0E0E0" StrokeThickness="1">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="15" />
-                    </Border.StrokeShape>
-                    <VerticalStackLayout Spacing="12">
-                        <Grid ColumnDefinitions="*, Auto">
-                            <VerticalStackLayout>
-                                <Label Text="Fertilizantes" FontAttributes="Bold" FontSize="18" TextColor="Black"/>
-                                <Border BackgroundColor="#E8F5E9" Padding="8,2" HorizontalOptions="Start" Margin="0,5,0,0">
-                                    <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="5"/>
-                                    </Border.StrokeShape>
-                                    <Label Text="Concluído" TextColor="#2E7D32" FontSize="12" FontAttributes="Bold"/>
-                                </Border>
-                            </VerticalStackLayout>
-                            <Label Grid.Column="1" Text="R$ 12.300,00" TextColor="#2E7D32" FontAttributes="Bold" FontSize="18" VerticalOptions="Start"/>
-                        </Grid>
-
-                        <VerticalStackLayout Spacing="8">
-                            <HorizontalStackLayout Spacing="10">
-                                <Label Text="🔵" VerticalOptions="Center"/>
-                                <Label Text="Santos - SP" TextColor="Gray" FontSize="14"/>
-                            </HorizontalStackLayout>
-                            <HorizontalStackLayout Spacing="10">
-                                <Label Text="🔴" VerticalOptions="Center"/>
-                                <Label Text="Goiânia - GO" TextColor="Gray" FontSize="14"/>
-                            </HorizontalStackLayout>
-                        </VerticalStackLayout>
-                    </VerticalStackLayout>
-                </Border>
-
-            </VerticalStackLayout>
-        </ScrollView>
+                </VerticalStackLayout>
+            </ScrollView>
+        </RefreshView>
     </Grid>
 </ContentPage>

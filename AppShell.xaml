@@ -1,29 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell
-    x:Class="RotaSegura.AppShell"
+    x:Class="CargaBR.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:RotaSegura" 
-    Title="RotaSegura"
-    FlyoutBehavior="Locked">
-    <FlyoutItem Title="Início" Icon="home_icon.png">
-        <ShellContent ContentTemplate="{DataTemplate local:HomePage}" Route="HomePage" />
-    </FlyoutItem>
+    xmlns:views="clr-namespace:CargaBR.Views"
+    xmlns:auth="clr-namespace:CargaBR.Views.Auth"
+    Title="CargaBR"
+    FlyoutBehavior="Disabled">
 
-    <FlyoutItem Title="Caminhão" Icon="sales_icon.png">
-        <ShellContent ContentTemplate="{DataTemplate local:TruckPage}" Route="TruckPage" />
-    </FlyoutItem>
+    <ShellContent Route="splash" ContentTemplate="{DataTemplate views:SplashPage}" />
+    <ShellContent Route="login" ContentTemplate="{DataTemplate auth:LoginPage}" />
+    <ShellContent Route="register" ContentTemplate="{DataTemplate auth:RegisterPage}" />
 
-    <FlyoutItem Title="Carga" Icon="product_icon.png">
-        <ShellContent ContentTemplate="{DataTemplate local:LoadPage}" Route="LoadPage" />
-    </FlyoutItem>
+    <TabBar Route="main">
+        <ShellContent Route="home" Title="Início" ContentTemplate="{DataTemplate views:HomePage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="FASolid" Glyph="&#xf015;" />
+            </ShellContent.Icon>
+        </ShellContent>
 
-    <FlyoutItem Title="Fretes" Icon="settings_icon.png">
-        <ShellContent ContentTemplate="{DataTemplate local:FreightPage}" Route="FreightPage" />
-    </FlyoutItem>
+        <ShellContent Route="truck" Title="Caminhão" ContentTemplate="{DataTemplate views:TruckPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="FASolid" Glyph="&#xf0d1;" />
+            </ShellContent.Icon>
+        </ShellContent>
 
-    <FlyoutItem Title="Perfil" Icon="settings_icon.png">
-        <ShellContent ContentTemplate="{DataTemplate local:SettingPage}" Route="SettingPage" />
-    </FlyoutItem>
+        <ShellContent Route="load" Title="Carga" ContentTemplate="{DataTemplate views:LoadPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="FASolid" Glyph="&#xf466;" />
+            </ShellContent.Icon>
+        </ShellContent>
 
+        <ShellContent Route="freight" Title="Fretes" ContentTemplate="{DataTemplate views:FreightPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="FASolid" Glyph="&#xf4d7;" />
+            </ShellContent.Icon>
+        </ShellContent>
+
+        <ShellContent Route="settings" Title="Perfil" ContentTemplate="{DataTemplate views:SettingPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="FASolid" Glyph="&#xf007;" />
+            </ShellContent.Icon>
+        </ShellContent>
+    </TabBar>
 </Shell>

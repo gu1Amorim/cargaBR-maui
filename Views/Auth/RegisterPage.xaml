@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CargaBR.ViewModels.Auth"
+             x:Class="CargaBR.Views.Auth.RegisterPage"
+             x:DataType="vm:RegisterPageViewModel"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="25" VerticalOptions="Center">
+
+            <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                <Label FontFamily="FASolid" Text="&#xf0d1;" FontSize="48"
+                       TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                       HorizontalOptions="Center" />
+                <Label Text="Criar Conta" FontSize="28" FontAttributes="Bold" HorizontalOptions="Center" />
+                <Label Text="Preencha seus dados para começar" Style="{StaticResource MutedLabel}" HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <Border Style="{StaticResource CardStyle}">
+                <VerticalStackLayout Spacing="15">
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Nome completo" FontAttributes="Bold" />
+                        <Entry Text="{Binding FullName}" Placeholder="Seu nome completo" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="CPF" FontAttributes="Bold" />
+                        <Entry Text="{Binding Cpf}" Placeholder="000.000.000-00" Keyboard="Numeric" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="E-mail" FontAttributes="Bold" />
+                        <Entry Text="{Binding Email}" Placeholder="seuemail@exemplo.com" Keyboard="Email" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Senha" FontAttributes="Bold" />
+                        <Entry Text="{Binding Password}" Placeholder="Mínimo 6 caracteres" IsPassword="True" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Confirmar senha" FontAttributes="Bold" />
+                        <Entry Text="{Binding ConfirmPassword}" Placeholder="Repita a senha" IsPassword="True" />
+                    </VerticalStackLayout>
+
+                    <Label Text="{Binding ErrorMessage}"
+                           TextColor="{AppThemeBinding Light={StaticResource Danger}, Dark={StaticResource DangerDark}}"
+                           IsVisible="{Binding ErrorMessage, Converter={StaticResource IsStringNotNullOrEmptyConverter}}" />
+
+                    <Button Text="Cadastrar" Style="{StaticResource PrimaryButton}"
+                            Command="{Binding RegisterCommand}"
+                            IsEnabled="{Binding IsNotBusy}" />
+
+                    <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                <Label Text="Já tem conta?" />
+                <Label Text="Entrar" FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToLoginCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

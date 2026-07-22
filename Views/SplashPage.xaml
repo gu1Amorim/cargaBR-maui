@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CargaBR.Views.SplashPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#1C2331">
+
+    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="25">
+        <Label FontFamily="FASolid" Text="&#xf0d1;" FontSize="64" TextColor="White" HorizontalOptions="Center" />
+        <Label Text="CargaBR" FontSize="32" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
+        <ActivityIndicator IsRunning="True" Color="White" />
+    </VerticalStackLayout>
+</ContentPage>

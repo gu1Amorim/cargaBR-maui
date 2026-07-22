@@ -1,20 +1,60 @@
-﻿using System.Windows.Input;
+using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.Input;
+using CargaBR.Models;
+using CargaBR.Services.Api;
 
-namespace RotaSegura.ViewModels
+namespace CargaBR.ViewModels;
+
+public partial class LoadPageViewModel : BaseViewModel
 {
-    public class LoadPageViewModel : BaseViewModel
-    {
-        public ICommand SaveTruckCommand { get; }
-        public bool IsNotPremium => false;
+    private readonly ILoadService _loadService;
 
-        public LoadPageViewModel()
+    public ObservableCollection<Load> Loads { get; } = [];
+
+    public LoadPageViewModel(ILoadService loadService)
+    {
+        _loadService = loadService;
+    }
+
+    [RelayCommand]
+    private async Task LoadLoadsAsync()
+    {
+        if (IsBusy) return;
+
+        try
         {
-            SaveTruckCommand = new Command(async () => {
-                if (Shell.Current != null)
-                {
-                    await Shell.Current.DisplayAlertAsync("Aviso", "Botão funcionando no protótipo!", "OK");
-                }
-            });
+            IsBusy = true;
+            ErrorMessage = null;
+
+            Loads.Clear();
+            foreach (var load in await _loadService.GetAvailableLoadsAsync())
+                Loads.Add(load);
+        }
+        catch (Exception)
+        {
+            ErrorMessage = "Não foi possível carregar as cargas disponíveis.";
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
+
+    [RelayCommand]
+    private async Task AcceptLoadAsync(Load load)
+    {
+        if (Shell.Current is null) return;
+
+        try
+        {
+            IsBusy = true;
+            await _loadService.AcceptLoadAsync(load.Id);
+            await Shell.Current.DisplayAlertAsync("Sucesso", $"Carga \"{load.Description}\" aceita!", "OK");
+            await LoadLoadsAsync();
+        }
+        finally
+        {
+            IsBusy = false;
         }
     }
 }

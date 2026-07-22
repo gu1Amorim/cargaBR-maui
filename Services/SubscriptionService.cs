@@ -1,13 +1,17 @@
-﻿namespace RotaSegura.Services
+namespace CargaBR.Services
 {
     public class SubscriptionService : ISubscriptionService
     {
+        // TODO: ligar a User.IsPremium retornado pelo IAuthService/API quando a autenticação real estiver implementada.
+        public bool IsPremium { get; private set; } = true;
+
         public bool IsFeatureAccessible(string featureId)
         {
-            if(featureId == "HomePage" || featureId == "SettingPage")
-                return true;
-
-            return true;
+            return featureId switch
+            {
+                "HomePage" or "SettingPage" => true,
+                _ => IsPremium
+            };
         }
     }
 }

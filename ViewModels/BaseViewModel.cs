@@ -1,17 +1,15 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace RotaSegura.ViewModels;
+namespace CargaBR.ViewModels;
 
-public class BaseViewModel : INotifyPropertyChanged
+public abstract partial class BaseViewModel : ObservableObject
 {
-    private bool _isBusy;
-    public bool IsBusy { get => _isBusy; set { _isBusy = value; OnPropertyChanged(); } }
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsNotBusy))]
+    private bool isBusy;
 
-    public event PropertyChangedEventHandler? PropertyChanged;
+    [ObservableProperty]
+    private string? errorMessage;
 
-    protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    public bool IsNotBusy => !IsBusy;
 }

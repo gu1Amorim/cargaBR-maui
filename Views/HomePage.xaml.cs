@@ -1,12 +1,20 @@
-using RotaSegura.ViewModels;
+using CargaBR.ViewModels;
 
-namespace RotaSegura;
+namespace CargaBR.Views;
 
 public partial class HomePage : ContentPage
 {
-	public HomePage(HomePageViewModel viewModel)
+    private readonly HomePageViewModel _viewModel;
+
+    public HomePage(HomePageViewModel viewModel)
     {
         InitializeComponent();
-        BindingContext = viewModel;
+        BindingContext = _viewModel = viewModel;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        _viewModel.LoadDashboardCommand.Execute(null);
     }
 }

@@ -1,12 +1,20 @@
-using RotaSegura.ViewModels;
+using CargaBR.ViewModels;
 
-namespace RotaSegura;
+namespace CargaBR.Views;
 
 public partial class LoadPage : ContentPage
 {
-	public LoadPage(LoadPageViewModel viewModel)
+    private readonly LoadPageViewModel _viewModel;
+
+    public LoadPage(LoadPageViewModel viewModel)
     {
         InitializeComponent();
-        BindingContext = viewModel;
+        BindingContext = _viewModel = viewModel;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        _viewModel.LoadLoadsCommand.Execute(null);
     }
 }

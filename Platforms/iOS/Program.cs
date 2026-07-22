@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace RotaSegura
+namespace CargaBR
 {
     public class Program
     {

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RotaSegura.SettingPage"
-             BackgroundColor="#F5F5F5"
+             xmlns:vm="clr-namespace:CargaBR.ViewModels"
+             x:Class="CargaBR.Views.SettingPage"
+             x:DataType="vm:SettingPageViewModel"
              Title="Perfil">
 
     <ScrollView>
@@ -21,63 +22,74 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="35" />
                         </Border.StrokeShape>
-                        <Label Text="JD" VerticalOptions="Center" HorizontalOptions="Center" 
-                               TextColor="White" FontSize="24" FontAttributes="Bold" />
+                        <Label FontFamily="FASolid" Text="&#xf007;" VerticalOptions="Center" HorizontalOptions="Center"
+                               TextColor="White" FontSize="24" />
                     </Border>
 
                     <VerticalStackLayout VerticalOptions="Center">
-                        <Label Text="João Do Caminhão" TextColor="White" FontSize="20" FontAttributes="Bold" />
-                        <Label Text="Motorista Premium" TextColor="#ABB2B9" FontSize="14" />
+                        <Label Text="{Binding UserName}" TextColor="White" FontSize="20" FontAttributes="Bold" />
+                        <Label Text="{Binding IsPremium, Converter={StaticResource IsPremiumToLabelConverter}}" TextColor="#ABB2B9" FontSize="14" />
                     </VerticalStackLayout>
                 </HorizontalStackLayout>
             </Border>
 
-            <Label Text="Minha Conta" TextColor="Black" FontAttributes="Bold" FontSize="18" Margin="5,10,0,0" />
+            <Label Text="Minha Conta" Style="{StaticResource SectionTitle}" />
 
-            <Border Stroke="#E0E0E0" StrokeThickness="1" BackgroundColor="White" Padding="5">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="12" />
-                </Border.StrokeShape>
-
+            <Border Style="{StaticResource CardStyle}" Padding="5">
                 <VerticalStackLayout>
                     <Grid ColumnDefinitions="50, *, Auto" Padding="15">
-                        <Label Text="👤" FontSize="20" VerticalOptions="Center" HorizontalOptions="Center"/>
-                        <Label Grid.Column="1" Text="Dados Pessoais" VerticalOptions="Center" TextColor="Black"/>
-                        <Label Grid.Column="2" Text="❯" TextColor="Gray" VerticalOptions="Center"/>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenPersonalDataCommand}" />
+                        </Grid.GestureRecognizers>
+                        <Label FontFamily="FASolid" Text="&#xf007;" FontSize="20" VerticalOptions="Center" HorizontalOptions="Center"/>
+                        <Label Grid.Column="1" Text="Dados Pessoais" VerticalOptions="Center"/>
+                        <Label Grid.Column="2" FontFamily="FASolid" Text="&#xf054;" Style="{StaticResource MutedLabel}" VerticalOptions="Center"/>
                     </Grid>
 
-                    <BoxView HeightRequest="1" Color="#F0F0F0" Margin="15,0"/>
+                    <BoxView HeightRequest="1" Color="{AppThemeBinding Light={StaticResource Border}, Dark={StaticResource BorderDark}}" Margin="15,0"/>
 
                     <Grid ColumnDefinitions="50, *, Auto" Padding="15">
-                        <Label Text="📄" FontSize="20" VerticalOptions="Center" HorizontalOptions="Center"/>
-                        <Label Grid.Column="1" Text="Documentos e CNH" VerticalOptions="Center" TextColor="Black"/>
-                        <Label Grid.Column="2" Text="❯" TextColor="Gray" VerticalOptions="Center"/>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenDocumentsCommand}" />
+                        </Grid.GestureRecognizers>
+                        <Label FontFamily="FASolid" Text="&#xf570;" FontSize="20" VerticalOptions="Center" HorizontalOptions="Center"/>
+                        <Label Grid.Column="1" Text="Documentos e CNH" VerticalOptions="Center"/>
+                        <Label Grid.Column="2" FontFamily="FASolid" Text="&#xf054;" Style="{StaticResource MutedLabel}" VerticalOptions="Center"/>
                     </Grid>
                 </VerticalStackLayout>
             </Border>
 
-            <Label Text="Assinatura" TextColor="Black" FontAttributes="Bold" FontSize="18" Margin="5,10,0,0" />
+            <Label Text="Preferências" Style="{StaticResource SectionTitle}" />
 
-            <Border Stroke="#E0E0E0" StrokeThickness="1" BackgroundColor="White" Padding="15">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="12" />
-                </Border.StrokeShape>
+            <Border Style="{StaticResource CardStyle}" Padding="15">
                 <Grid ColumnDefinitions="*, Auto">
-                    <VerticalStackLayout>
-                        <Label Text="Plano Mensal Ativo" FontAttributes="Bold" TextColor="Black"/>
-                        <Label Text="Renova em: 20/05/2026" TextColor="Gray" FontSize="12"/>
-                    </VerticalStackLayout>
-                    <Label Grid.Column="1" Text="Gerenciar" TextColor="#2962FF" VerticalOptions="Center" FontAttributes="Bold"/>
+                    <Label Text="Aparência do aplicativo" VerticalOptions="Center"/>
+                    <Picker Grid.Column="1" ItemsSource="{Binding ThemeOptions}" SelectedItem="{Binding SelectedThemeOption}" WidthRequest="120"/>
                 </Grid>
             </Border>
 
-            <Button Text="Sair da Conta" 
+            <Label Text="Assinatura" Style="{StaticResource SectionTitle}" />
+
+            <Border Style="{StaticResource CardStyle}" Padding="15">
+                <Grid ColumnDefinitions="*, Auto">
+                    <VerticalStackLayout>
+                        <Label Text="{Binding IsPremium, Converter={StaticResource IsPremiumToLabelConverter}}" FontAttributes="Bold"/>
+                        <Label Text="{Binding SubscriptionRenewalText}" Style="{StaticResource MutedLabel}" FontSize="12"/>
+                    </VerticalStackLayout>
+                    <Label Grid.Column="1" Text="Gerenciar"
+                           TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                           VerticalOptions="Center" FontAttributes="Bold"/>
+                </Grid>
+            </Border>
+
+            <Button Text="Sair da Conta"
+                    Command="{Binding LogoutCommand}"
                     BackgroundColor="Transparent"
-                    TextColor="#FF5252"
+                    TextColor="{AppThemeBinding Light={StaticResource Danger}, Dark={StaticResource DangerDark}}"
                     FontAttributes="Bold"
                     Margin="0,20,0,0" />
 
-            <Label Text="Versão 1.0.0" HorizontalOptions="Center" TextColor="Silver" FontSize="12" />
+            <Label Text="Versão 1.0.0" HorizontalOptions="Center" Style="{StaticResource MutedLabel}" FontSize="12" />
 
         </VerticalStackLayout>
     </ScrollView>

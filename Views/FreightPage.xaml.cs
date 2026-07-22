@@ -1,12 +1,20 @@
-using RotaSegura.ViewModels;
+using CargaBR.ViewModels;
 
-namespace RotaSegura;
+namespace CargaBR.Views;
 
 public partial class FreightPage : ContentPage
 {
-	public FreightPage(FreightPageViewModel viewModel)
+    private readonly FreightPageViewModel _viewModel;
+
+    public FreightPage(FreightPageViewModel viewModel)
     {
         InitializeComponent();
-        BindingContext = viewModel;
+        BindingContext = _viewModel = viewModel;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        _viewModel.LoadFreightsCommand.Execute(null);
     }
 }

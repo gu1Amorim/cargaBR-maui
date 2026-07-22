@@ -1,10 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using CargaBR.Models.Enums;
 
-namespace RotaSegura.Models
+namespace CargaBR.Models;
+
+public class Load
 {
-    internal class Load
-    {
-    }
+    public int Id { get; set; }
+    public string Description { get; set; } = string.Empty;
+    public decimal Value { get; set; }
+    public string OriginCity { get; set; } = string.Empty;
+    public string DestinationCity { get; set; } = string.Empty;
+    public double WeightTons { get; set; }
+    public double DistanceKm { get; set; }
+    public DateTime PickupDate { get; set; }
+    public LoadStatus Status { get; set; }
 }

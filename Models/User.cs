@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+namespace CargaBR.Models;
 
-namespace RotaSegura.Models
+public class User
 {
-    internal class User
-    {
-    }
+    public int Id { get; set; }
+    public string FullName { get; set; } = string.Empty;
+    public string Cpf { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public bool IsPremium { get; set; }
+    public DateTime? SubscriptionExpiration { get; set; }
 }

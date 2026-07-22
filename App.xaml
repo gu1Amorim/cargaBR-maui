@@ -1,14 +1,20 @@
 ﻿<?xml version = "1.0" encoding = "UTF-8" ?>
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:RotaSegura"
-             x:Class="RotaSegura.App">
+             xmlns:local="clr-namespace:CargaBR"
+             xmlns:converters="clr-namespace:CommunityToolkit.Maui.Converters;assembly=CommunityToolkit.Maui"
+             xmlns:appConverters="clr-namespace:CargaBR.Converters"
+             x:Class="CargaBR.App">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <converters:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
+            <appConverters:IsPremiumToLabelConverter x:Key="IsPremiumToLabelConverter" />
+            <appConverters:FreightStatusToLabelConverter x:Key="FreightStatusToLabelConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
